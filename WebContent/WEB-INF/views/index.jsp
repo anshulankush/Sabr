@@ -1,10 +1,12 @@
+
+<%
+	response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1 
+	response.setHeader("Pragma", "no-cache"); //HTTP 1.0 
+	response.setDateHeader("Expires", 0); //prevents caching at the proxy server
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-
-
-<!-- <!doctype html> -->
 <html lang="us">
 <head>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
@@ -18,44 +20,19 @@
 <link rel="stylesheet" href="js/jquery.mobile-1.3.2.css" />
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery.mobile-1.3.2.js"></script>
-
 <script type="text/javascript">
-	/* $('#cityDropdownInput :input').not(':submit')
-	 .clone().hide().appendTo('#teamDropdownInput');
-	 document.getElementById("teamDropdownINput").submit(); */
-</script>
-
-<%--
-$("#cityDropdown").change(
-        function(){
-        $("#result").html('Retrieving ...');
-        var selCase = $("#cityDropdown").val();
-        $.ajax({
-            type: "POST",
-            url: "TeamDropdown",
-            data: {selCaseDropDown: selCase},
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(msg) {
-                $("#teamDropdown").get(0).options.length = 0;
-                $("#teamDropdown").get(0).options[0] = new Option("Term Codes", "-1");   
-
-                $.each(msg.d, function(index, item) {
-                    $("#teamDropdown").get(0).options[$("#teamDropdown").get(0).options.length] = new Option(item.value, item.key);
-                });
-            },
-            error: function() {
-                alert("Failed to load teams");
-                $("#result").hide();
-            }
-        });
-    });
-
 
 </script>
- --%>
 <style type="text/css">
+.ui-page.ui-body-c {
+	background: url(sabrImages/TEST.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+	background-size: 100% 100%;
+}
 </style>
+
 </head>
 <body>
 	<div data-role="page">
@@ -64,39 +41,100 @@ $("#cityDropdown").change(
 		</div>
 		<!-- /header -->
 		<br />
-		<form name="cityDropdownInput" action="TeamDropdown">
+
+		<form name="cityDropdownInput" action="TeamDropdown" method="post">
 			<div data-role="fieldcontain">
-				<label for="cityBean" class="select">Choose a MLB City</label> <select
-					name="cityBean.selectedCity" id="cityDropdown"
-					onchange="this.form.submit()">
-					<option>${cityBean.selectedCity}</option>
-					<s:iterator value="cityArrayString">
-						<option value="<s:property />"
-							${cityBean.selectedCity == 'selectedCit' ? 'selected="selected"' : ''}><s:property /></option>
-					</s:iterator>
-				</select>
+				<table style="width: 100%">
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td />
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr align="center">
+						<td><label for="cityBean" class="select"
+							style="color: white;">Choose a MLB City</label></td>
+					</tr>
+					<tr align="center">
+						<td><select name="cityBean.selectedCity" id="cityDropdown"
+							onchange="this.form.submit()">
+								<option>${cityBean.selectedCity}</option>
+								<s:iterator value="cityArrayString">
+									<option value="<s:property />"
+										${cityBean.selectedCity == 'selectedCit' ? 'selected="selected"' : ''}><s:property /></option>
+								</s:iterator>
+						</select></td>
+					</tr>
+
+				</table>
+
 			</div>
 		</form>
 		<br />
-		<form name="teamDropdownInput" action="SecondPage">
-			<input value="${cityBean.selectedCity}" style="display: none"
-				name="cityBean.selectedCity"></input>
-			<div data-role="fieldcontain">
-				<label for="teamBean" class="select">Choose a MLB Team</label> <select
-					name="teamBean.team" id="teamDropdown">
-					<option></option>
-					<s:iterator value="teamArrayString">
-						<option value="<s:property />"><s:property /></option>
-					</s:iterator>
-				</select>
-
-
+		<form name="teamDropdownInput" action="SecondPage" method="post">
+			<table style="width: 100%">
+				<tr align="center">
+					<td><input type="hidden" value="${cityBean.selectedCity}"
+						style="display: none" name="cityBean.selectedCity" /></td>
+				</tr>
+			</table>
+			<div data-role="fieldcontain" data-theme="b">
+				<table style="width: 100%">
+					<tr align="center">
+						<td><label for="teamBean" style="color: white;">Choose
+								a MLB Team</label></td>
+					</tr>
+					<tr align="center">
+						<td><select name="teamBean.team" id="teamDropdown">
+								<option></option>
+								<s:iterator value="teamArrayString">
+									<option value="<s:property />"><s:property /></option>
+								</s:iterator>
+						</select></td>
+					</tr>
+				</table>
 			</div>
-			<br /> <input type="submit" id="SecondPageSubmitButton"
-				value="Submit" style="width: 50%">
-		</form>
+			<table style="width: 50%; margin-left: 25%">
+				<tr align="center">
+					<td align="center"><br /> <input type="submit"
+						id="SecondPageSubmitButton" value="Explore"></td>
+				</tr>
 
+			</table>
+
+		</form>
 	</div>
 	<!-- /page -->
+
 </body>
 </html>

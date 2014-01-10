@@ -36,8 +36,14 @@ public class InitialLoad extends ActionSupport {
 
 	public String execute() throws IOException{
 		TeamAndCity teamAndCity = new TeamAndCity();
-		cityArrayString=teamAndCity.getCityDataFronAPI(cityArrayString);
-		teamArrayString=teamAndCity.getTeamDataFronAPI(teamArrayString);
-		return SUCCESS;
+		try{
+			cityArrayString=teamAndCity.getCityDataFronAPI(cityArrayString);
+			teamArrayString=teamAndCity.getTeamDataFronAPI(teamArrayString);
+			return SUCCESS;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return ERROR;
+		}
 	}
 }

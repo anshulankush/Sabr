@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -39,10 +38,12 @@ public class TeamAndCity {
 				buffer.append(chars, 0, read); 
 
 			jsonp=buffer.toString();
-			//System.out.println(jsonp);
 			mlbCitiesData = jsonp.substring(jsonp.indexOf("(") + 1, jsonp.lastIndexOf(")"));
-			//	System.out.println(mlbCitiesData);
 		} 
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 		finally {
 			if (reader != null)
 				reader.close();
@@ -52,7 +53,7 @@ public class TeamAndCity {
 
 
 		try {
-			System.out.println("in json parser");
+			//System.out.println("in json parser");
 			Object obj = parser.parse(mlbCitiesData);
 			//System.out.println(obj.toString());
 
@@ -69,7 +70,6 @@ public class TeamAndCity {
 
 
 			cityArrayString = new ArrayList<String>();
-
 			while (i.hasNext()) {
 				//System.out.println("inside iter");
 				cityBean= new CityBean();
@@ -83,23 +83,18 @@ public class TeamAndCity {
 
 				cityArray.add(cityBean);
 				JSONArray venueSet = (JSONArray) slide.get("venue_set");
-				@SuppressWarnings("unchecked")
+				@SuppressWarnings({ "unchecked", "unused" })
 				Iterator<String> iterator = venueSet.iterator();
-				while (iterator.hasNext()) {
-					System.out.println(iterator.next());
-				}
+				//				while (iterator.hasNext()) {
+				//					//System.out.println(iterator.next());
+				//				}
 			}
-			//	System.out.println("cityArrayString "+cityArrayString);
+			System.out.println("cityArrayString "+cityArrayString);
 			return cityArrayString;
-		}
-		catch (ParseException e) {
+		}catch(Exception e){
 			e.printStackTrace();
+			return null;
 		}
-		return null;
-
-
-
-
 	}
 
 	public List<String> getTeamDataFronAPI(List<String> teamArrayString) throws IOException {
@@ -118,10 +113,14 @@ public class TeamAndCity {
 				bufferTeam.append(charsTeam, 0, readTeam); 
 
 			jsonpTeam=bufferTeam.toString();
-			System.out.println(jsonpTeam);
+			//System.out.println(jsonpTeam);
 			mlbTeamsData = jsonpTeam.substring(jsonpTeam.indexOf("(") + 1, jsonpTeam.lastIndexOf(")"));
-			System.out.println(mlbTeamsData);
+			//System.out.println(mlbTeamsData);
 		} 
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 		finally {
 			if (readerTeam != null)
 				readerTeam.close();
@@ -133,7 +132,7 @@ public class TeamAndCity {
 		try {
 			System.out.println("in json parser Team");
 			Object objTeam = parserTeam.parse(mlbTeamsData);
-			System.out.println(objTeam.toString());
+			//System.out.println(objTeam.toString());
 
 			JSONArray arrayTeam=(JSONArray)objTeam;
 
@@ -171,10 +170,10 @@ public class TeamAndCity {
 			System.out.println("teamArrayString "+teamArrayString);		
 			return teamArrayString;
 		}
-		catch (ParseException e) {
+		catch(Exception e){
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	public List<String> getTeamDataBasedOnCity(List<String> teamArrayString, String selectedCity) throws IOException {
@@ -193,10 +192,14 @@ public class TeamAndCity {
 				bufferTeam.append(charsTeam, 0, readTeam); 
 
 			jsonpTeam=bufferTeam.toString();
-			System.out.println(jsonpTeam);
+			//	System.out.println(jsonpTeam);
 			mlbTeamsData = jsonpTeam.substring(jsonpTeam.indexOf("(") + 1, jsonpTeam.lastIndexOf(")"));
-			System.out.println(mlbTeamsData);
-		} 
+			//		System.out.println(mlbTeamsData);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 		finally {
 			if (readerTeam != null)
 				readerTeam.close();
@@ -205,39 +208,41 @@ public class TeamAndCity {
 		try {
 			System.out.println("in json parser Team based on City.");
 			Object objTeam = parserTeam.parse(mlbTeamsData);
-			System.out.println("objTeam"+objTeam.toString());
+			//	System.out.println("objTeam"+objTeam.toString());
 
 			JSONArray arrayTeam=(JSONArray)objTeam;
 
 			@SuppressWarnings("rawtypes")
 			Iterator iTeam = arrayTeam.iterator();
+			@SuppressWarnings("unused")
 			TeamBean teamBean;
+			@SuppressWarnings("unused")
 			ArrayList<TeamBean> teamArray= new ArrayList<TeamBean>();
 			Set<String> cityBasedTeamSet= new HashSet<String>();
-			System.out.println("selected city"+selectedCity);
+			System.out.println("selected city "+selectedCity);
 			while (iTeam.hasNext()) {
 				teamBean= new TeamBean();
 				JSONObject slideTeam = (JSONObject) iTeam.next();
 				JSONObject j= (JSONObject) slideTeam.get("mlb_city");
-				System.out.println(j.get("name").toString()+", "+selectedCity);
+				//	System.out.println(j.get("name").toString()+", "+selectedCity);
 				if(j.get("name").toString().equals(selectedCity)){
-					System.out.println("1");
+					//System.out.println("1");
 					if(slideTeam.get("mlb_team")!=null){
 						JSONObject j1= (JSONObject) slideTeam.get("mlb_team");
 						if(j1.get("name")!=null)
-							System.out.println("2");
-						cityBasedTeamSet.add(j1.get("name").toString());
-						System.out.println(j1.get("name").toString());
+							//	System.out.println("2");
+							cityBasedTeamSet.add(j1.get("name").toString());
+						//System.out.println(j1.get("name").toString());
 					}
 				}
 			}
 			teamArrayString = new ArrayList<String>(cityBasedTeamSet);
-			System.out.println(teamArrayString.toString());
+			System.out.println("team based on city "+teamArrayString.toString());
 			return teamArrayString;
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 }

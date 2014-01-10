@@ -30,12 +30,12 @@ public class TeamDropdown extends ActionSupport{
 	public TeamBean getTeamBean() {
 		return teamBean;
 	}
-	
+
 
 	public void setTeamBean(TeamBean teamBean) {
 		this.teamBean = teamBean;
 	}
-	
+
 	private List<String> cityArrayString;
 	private List<String> teamArrayString;
 
@@ -61,16 +61,22 @@ public class TeamDropdown extends ActionSupport{
 
 
 	public String execute() throws IOException{
-		System.out.println("In team Drop down");
-		//System.out.println("Selected team "+teamBean.getTeam());
-		System.out.println("getCity"+cityBean.getCity());
-		System.out.println("selectedCity"+cityBean.getSelectedCity());
+		try{
+			System.out.println("In team Drop down");
+			//System.out.println("Selected team "+teamBean.getTeam());
+			System.out.println("getCity "+cityBean.getCity());
+			System.out.println("selectedCity "+cityBean.getSelectedCity());
 
-		@SuppressWarnings("unused")
-		String selectedCit=cityBean.getCity();
-		TeamAndCity teamAndCity = new TeamAndCity();
-		cityArrayString=teamAndCity.getCityDataFronAPI(cityArrayString);
-		teamArrayString=teamAndCity.getTeamDataBasedOnCity(teamArrayString,cityBean.getSelectedCity());
-		return SUCCESS;
+			@SuppressWarnings("unused")
+			String selectedCit=cityBean.getCity();
+			TeamAndCity teamAndCity = new TeamAndCity();
+			cityArrayString=teamAndCity.getCityDataFronAPI(cityArrayString);
+			teamArrayString=teamAndCity.getTeamDataBasedOnCity(teamArrayString,cityBean.getSelectedCity());
+			return SUCCESS;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return ERROR;
+		}
 	}
 }

@@ -1,6 +1,9 @@
 package mainPackage;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bean.CityBean;
 import bean.TeamBean;
 import bean.VenueBean;
@@ -17,8 +20,20 @@ public class ThirdPage extends ActionSupport {
 	public VenueBean venueBean;
 	public CityBean cityBean;
 	public TeamBean teamBean;
-	
-	
+
+	private List<String> venueArrayString;
+	//	private List<Object> venueArrayString1;
+
+	public List<String> getVenueArrayString() {
+		return venueArrayString;
+	}
+
+
+	public void setVenueArrayString(List<String> venueArrayString) {
+		this.venueArrayString = venueArrayString;
+	}
+
+
 	public CityBean getCityBean() {
 		return cityBean;
 	}
@@ -47,17 +62,47 @@ public class ThirdPage extends ActionSupport {
 	public void setVenueBean(VenueBean venueBean) {
 		this.venueBean = venueBean;
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	ArrayList<VenueBean> alVenue=new ArrayList();
+
+
+	public ArrayList<VenueBean> getAlVenue() {
+		return alVenue;
+	}
+
+
+	public void setAlVenue(ArrayList<VenueBean> alVenue) {
+		this.alVenue = alVenue;
+	}
 
 
 	public String execute(){
-		System.out.println("city Type: "+cityBean.getSelectedCity());
-		System.out.println("Venue Type: "+venueBean.getVenueType());
-		System.out.println("Team type: "+teamBean.getTeam());
-		
-		ListOfVenues venues= new ListOfVenues();
-		venues.getVenues(venueBean.getVenueType());
-		
+		try{
+			System.out.println("city Type: "+cityBean.getSelectedCity());
+			System.out.println("Venue Type: "+venueBean.getVenueType());
+			System.out.println("Team type: "+teamBean.getTeam());
+			if(teamBean.getTeam().length()<=0){
+				String s=cityBean.getSelectedCity()+"  |  "+ venueBean.getVenueType();
+				cityBean.setSecondPageHeader(s);
+			}
+			else{
+				String s=cityBean.getSelectedCity()+"  |  "+teamBean.getTeam()+"  |  "+ venueBean.getVenueType();
+				cityBean.setSecondPageHeader(s);
+			}
+			ListOfVenues venues= new ListOfVenues();
+			if(teamBean.getTeam().length()>0){
+				alVenue=venues.getVenuesWithTeam(venueBean.getVenueType(), cityBean.getSelectedCity(), teamBean.getTeam());
+			}
+			else{
+				alVenue=venues.getVenuesWithoutTeam(venueBean.getVenueType(), cityBean.getSelectedCity());
 
-		return "success";
+			}
+			//System.out.println(venueArrayString);
+
+			return SUCCESS;
+		}catch(Exception e){
+			e.printStackTrace();
+			return ERROR;
+		}
 	}
 }

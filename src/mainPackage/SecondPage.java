@@ -1,9 +1,8 @@
 package mainPackage;
 
-import java.util.List;
-
 import bean.CityBean;
 import bean.TeamBean;
+import bean.VenueBean;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -14,7 +13,7 @@ public class SecondPage extends ActionSupport {
 
 	public CityBean cityBean;
 	public TeamBean teamBean;
-
+	public VenueBean venueBean;
 
 	public CityBean getCityBean() {
 		return cityBean;
@@ -36,13 +35,43 @@ public class SecondPage extends ActionSupport {
 	}
 
 
+
+	public VenueBean getVenueBean() {
+		return venueBean;
+	}
+
+
+	public void setVenueBean(VenueBean venueBean) {
+		this.venueBean = venueBean;
+	}
+
+
+	@SuppressWarnings("unused")
 	public String execute(){
-
-		System.out.println("Selected team "+teamBean.getTeam());
-		System.out.println("Selected city"+cityBean.getSelectedCity());
-		@SuppressWarnings("unused")
-		String selectedCity=cityBean.getSelectedCity();
-
-		return "success";
+		try{
+			try{
+//				System.out.println("myLat:"+venueBean.getMyLat());
+//				System.out.println("myLong:"+venueBean.getMyLong());
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			System.out.println("Selected team "+teamBean.getTeam());
+			System.out.println("Selected city "+cityBean.getSelectedCity());
+			if(teamBean.getTeam().length()<=0){
+				String s=cityBean.getSelectedCity();
+				cityBean.setSecondPageHeader(s);
+			}
+			else{
+				String s=cityBean.getSelectedCity()+"  |  "+teamBean.getTeam();
+				cityBean.setSecondPageHeader(s);
+			}
+			String selectedCity=cityBean.getSelectedCity();
+			return SUCCESS;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return ERROR;
+		}
 	}
 }
