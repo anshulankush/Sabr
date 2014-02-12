@@ -9,7 +9,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <head />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Sabr</title>
+<title>SABR</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -22,9 +22,15 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script type="text/javascript" src="js/ui/jquery.ui.map.js"></script>
-<script>
-	
-</script>
+<style type="text/css">
+.ui-page.ui-body-c {
+	background: url(sabrImages/TEST.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-size: 100% 100%;
+}
+</style>
 </head>
 <body>
 	<div data-role="page">
@@ -47,8 +53,8 @@
 							style="text-align: center; color: white;">Venue Details</label></td>
 					</tr>
 					<tr>
-						<td>
-						<img src="http://maps.googleapis.com/maps/api/staticmap?center=${venueBean.latitude},${venueBean.longitude}&zoom=15&size=300x300&markers=color:red%7Clabel:A%7C${venueBean.longitude},${venueBean.latitude}&maptype=roadmap18&sensor=false">
+						<td><img
+							src="http://maps.googleapis.com/maps/api/staticmap?center=${venueBean.latitude},${venueBean.longitude}&zoom=15&size=300x300&markers=color:red%7Clabel:A%7C${venueBean.longitude},${venueBean.latitude}&maptype=roadmap18&sensor=false">
 							<%-- <div data-role="page" id="map-page" data-url="map-page">
 								<div data-role="header">
 									<h1>Maps</h1>
@@ -60,19 +66,16 @@
 									$('#map_canvas').gmap('openInfoWindow', {'content': 'Hello
 									World!'}, this); });
 								</div>
-							</div> --%>
-						</td>
+							</div> --%></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;"><Strong><b>${venueBean.name}</b></Strong></td>
+						<td align="left" style="color: white;font: bolder;"><Strong><b>${venueBean.name}</b></Strong></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;"><small><b>
-									${venueBean.address}</b></small></td>
+						<td align="left" style="color: white;font: bold;"><small><b>${venueBean.address}</b></small></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;"><small><b>Ph:
-									${venueBean.phone}</b></small></td>
+						<td align="left" style="color: white;"><small><b>${venueBean.phone}</b></small></td>
 					</tr>
 					<tr>
 						<td align="left" style="color: white;"><small>
@@ -90,14 +93,14 @@
 						<td align="left" style="color: white;"><img
 							src="${venueBean.image}"></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td align="left" style="color: white;"><small>Tags:
 								${venueBean.tags}</small></td>
 					</tr>
 					<tr>
 						<td align="left" style="color: white;"><small>Slug:
 								${venueBean.slug}</small></td>
-					</tr>
+					</tr> --%>
 				</table>
 			</div>
 		</form>

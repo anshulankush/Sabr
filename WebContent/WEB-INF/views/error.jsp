@@ -7,7 +7,7 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <head />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Sabr</title>
+<title>SABR</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
