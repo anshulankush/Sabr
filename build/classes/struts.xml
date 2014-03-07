@@ -9,6 +9,7 @@
 
 	<!-- <constant name="struts.action.extension" value="do" /> -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- <constant name="struts.action.extension" value=""/> -->
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
 	<package name="default" extends="struts-default" namespace="/">
@@ -32,20 +33,22 @@
 			<result name="error">/WEB-INF/views/error.jsp</result>
 		</action>
 
+		<action name="TeamDropdown" class="mainPackage.TeamDropdown">
+			<result name="success">/WEB-INF/views/index.jsp</result>
+			<result name="error">/WEB-INF/views/error.jsp</result>
+		</action>
+
 		<action name="SecondPage" class="mainPackage.SecondPage">
 			<result name="success">/WEB-INF/views/citySelect.jsp</result>
 			<result name="error">/WEB-INF/views/error.jsp</result>
 		</action>
 
 		<action name="ThirdPage" class="mainPackage.ThirdPage">
+
 			<result name="success">/WEB-INF/views/venueDetails.jsp</result>
 			<result name="error">/WEB-INF/views/error.jsp</result>
 		</action>
 
-		<action name="TeamDropdown" class="mainPackage.TeamDropdown">
-			<result name="success">/WEB-INF/views/index.jsp</result>
-			<result name="error">/WEB-INF/views/error.jsp</result>
-		</action>
 		<action name="venueDropdown" class="mainPackage.FourthPage">
 			<result name="success">/WEB-INF/views/completeDetails.jsp</result>
 			<result name="error">/WEB-INF/views/error.jsp</result>

@@ -22,6 +22,20 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script type="text/javascript" src="js/ui/jquery.ui.map.js"></script>
+<script type="text/javascript">
+function onPositionUpdate(position)
+{
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    alert("Current position: " + lat + " " + lng);
+}
+
+if(navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(onPositionUpdate);
+else
+    alert("navigator.geolocation is not available");</script>
+
+
 <style type="text/css">
 .ui-page.ui-body-c {
 	background: url(sabrImages/TEST.jpg);
@@ -30,18 +44,34 @@
 	background-size: cover;
 	background-size: 100% 100%;
 }
+
+.box {
+	width: 300px;
+	height: 300px;
+	background-color: #d9d9d9;
+	position: fixed;
+	margin-left: -150px; /* half of width */
+	margin-top: -150px; /* half of height */
+	top: 50%;
+	left: 50%;
+}
 </style>
 </head>
 <body>
 	<div data-role="page">
-		<div data-role="header">
-			<h1>${cityBean.secondPageHeader}</h1>
-		</div>
+		<form name="backButton" action="initial" method="post">
+			<div data-role="header">
+				<%-- 				<h1>${cityBean.secondPageHeader}</h1>
+ --%>
+				<input type="submit" id="LibraryButton" data-icon="arrow-l"
+					value="Back">
+			</div>
+		</form>
 		<!-- /header -->
 		<br />
 		<form name="completeDropdown" action="completeDropdown" method="post">
 			<div data-role="listview">
-				<table style="width: 100%; height: 100%">
+				<table style="width: 100%; height: 100%" class="box">
 					<tr>
 						<td><input type="hidden" value="${teamBean.team}"
 							style="display: none" name="teamBean.team" /> <input
@@ -53,9 +83,10 @@
 							style="text-align: center; color: white;">Venue Details</label></td>
 					</tr>
 					<tr>
-						<td><img
+						<td align="center"><img
 							src="http://maps.googleapis.com/maps/api/staticmap?center=${venueBean.latitude},${venueBean.longitude}&zoom=15&size=300x300&markers=color:red%7Clabel:A%7C${venueBean.longitude},${venueBean.latitude}&maptype=roadmap18&sensor=false">
-							<%-- <div data-role="page" id="map-page" data-url="map-page">
+							<%-- 							src="http://maps.googleapis.com/maps/api/staticmap?center=${venueBean.latitude},${venueBean.longitude}&zoom=15&size=300x300&markers=color:red%7Clabel:B%7C${venueBean.longitude},${venueBean.latitude}&maptype=roadmap18&sensor=false">
+							 --%> <%-- <div data-role="page" id="map-page" data-url="map-page">
 								<div data-role="header">
 									<h1>Maps</h1>
 								</div>
@@ -69,28 +100,29 @@
 							</div> --%></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;font: bolder;"><Strong><b>${venueBean.name}</b></Strong></td>
+						<td align="center" style="color: white; font: bolder;"><Strong><b><a
+									href="${venueBean.web}">${venueBean.name}</a></b></Strong></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;font: bold;"><small><b>${venueBean.address}</b></small></td>
+						<td align="center" style="color: white; font: bold;"><small><b>${venueBean.address}</b></small></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;"><small><b>${venueBean.phone}</b></small></td>
+						<td align="center" style="color: white;"><small><b>${venueBean.phone}</b></small></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;"><small>
+						<td align="center" style="color: white;"><small>
 								${venueBean.description}</small></td>
 					</tr>
 					<tr>
-						<td align="left" style="color: white;"><small>Team:
+						<td align="center" style="color: white;"><small>
 								${venueBean.mlb_team}</small></td>
 					</tr>
-					<tr>
-						<td align="left" style="color: white;"><a
+					<%-- <tr>
+						<td align="center" style="color: white;"><a
 							href="${venueBean.web}">Website</a></td>
-					</tr>
+					</tr> --%>
 					<tr>
-						<td align="left" style="color: white;"><img
+						<td align="center" style="color: white;"><img
 							src="${venueBean.image}"></td>
 					</tr>
 					<%-- <tr>

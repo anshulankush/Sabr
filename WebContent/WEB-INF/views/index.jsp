@@ -36,9 +36,15 @@
 </head>
 <body>
 	<div data-role="page">
-		<div data-role="header">
-			<h1>SABR Homepage</h1>
-		</div>
+		<form name="backButton" action="initial" method="post">
+			<div data-role="header">
+				<!-- <h1>SABR Homepage</h1>
+				 --><input type="submit" data-icon="arrow-l"
+					value="Back">
+
+			</div>
+		</form>
+
 		<!-- /header -->
 		<br />
 

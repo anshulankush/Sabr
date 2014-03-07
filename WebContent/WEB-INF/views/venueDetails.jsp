@@ -38,9 +38,12 @@
 </head>
 <body>
 	<div data-role="page">
+	<form name="backButton" action="initial" method="post" >
 		<div data-role="header">
-			<h1>${cityBean.secondPageHeader}</h1>
+			<%-- <h1>${cityBean.secondPageHeader}</h1>
+			 --%>	<input type="submit" id="LibraryButton" data-icon="arrow-l" value="Back">
 		</div>
+</form>
 		<!-- /header -->
 		<br />
 		<form name="venueDropdown" action="venueDropdown"

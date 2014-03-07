@@ -1,6 +1,6 @@
 <%-- <% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1 
  response.setHeader("Pragma","no-cache"); //HTTP 1.0 
- response.setDateHeader ("Expires", 0); //prevents caching at the proxy server  --%> 
+ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server  --%>
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
@@ -33,12 +33,15 @@
 </head>
 <body>
 	<div data-role="page">
+	<form name="backButton" action="initial" method="post" >
 		<div data-role="header">
-			<h1>${cityBean.secondPageHeader}</h1>
+			<%-- <h1>${cityBean.secondPageHeader}</h1>
+			 --%>	<input type="submit" id="LibraryButton" data-icon="arrow-l" value="Back">
 		</div>
+		</form>
 		<!-- /header -->
 		<br />
-		<table style="width:100%" >
+		<table style="width: 100%">
 			<tr>
 				<td align="center">
 					<form name="attractionInput" action="ThirdPage" method="post">
